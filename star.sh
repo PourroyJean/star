@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 STAR_DIR="$HOME/.star"
 _STAR_DIR_SEPARATOR="»"

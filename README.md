@@ -2,6 +2,13 @@
 
 star is a CLI tool that allows you to bookmark your favorite folders and instantly navigate to them.
 
+## Requirements
+
+This software has been developed on bash >= 5.2, untested on prior versions (pretty sure it does not work on bash 3).
+It uses GNU tools such as `find`, `basename`, which are not always the default (e.g. find exists on MacOS, but does not have the same options as the GNU version).
+
+On MacOS, GNU utils can be installed using brew: https://apple.stackexchange.com/questions/69223/how-to-replace-mac-os-x-utilities-with-gnu-core-utilities.
+
 ## Installation
 
 Clone the repo and source the file [`star.sh`](./star.sh):
