@@ -15,13 +15,18 @@ Clone the repo and source the file [`star.sh`](./star.sh):
 ```bash
 git clone https://github.com/Fruchix/star.git
 cd star
-. star.sh           # equivalent of "source star.sh"s
+source star.sh           # equivalent of ". star.sh"s
 ```
 
-Also source the file in your `.bashrc` or `.zshrc`:
+Also source the file in your `.bashrc`:
 ```
-. /path/to/star.sh
+echo "source $(pwd)/star.sh" >> ~/.bashrc
 ```
+or `.zshrc`:
+```
+echo "source $(pwd)/star.sh" >> ~/.zshrc
+```
+
 
 ## Usage
 
@@ -43,15 +48,17 @@ With `OPTION`:
 ---
 ```
 star list
+sL
 ```
 List all starred directories, sorted according to last load (top ones are the last loaded stars).
 
 ---
 ```
 star load [star]
+sl
 ```
-Navigate into the starred directory.
-Equivalent to "star list" when no starred directory is provided.
+Navigate (cd) into the specified [star] directory.
+If no argument is provided, it displays the list of starred directories (same behavior as star list).
 
 `[star]` should be the name of a starred directory (one that is listed using "star list").
 
