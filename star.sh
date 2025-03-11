@@ -247,7 +247,12 @@ The following aliases are provided:
                 
                 # Adjust for 0-based array indexing
                 star_index=$((star_to_load - 1))
-                star_to_load="${stars[$star_index]}"
+                # Use shell detection to handle both bash and zsh
+                if [[ -n "${ZSH_VERSION}" ]]; then
+                    star_to_load="${stars[$((star_index+1))]}"
+                else
+                    star_to_load="${stars[$star_index]}"
+                fi
             fi
 
             if [[ ! -e ${STAR_DIR}/${star_to_load} ]]; then
