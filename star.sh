@@ -229,6 +229,32 @@ The following aliases are provided:
                 return
             fi
 
+            # Check if argument is purely numeric
+            if [[ "${star_to_load}" =~ ^[0-9]+$ ]]; then
+                # Get the list of stars sorted by access time (same as LIST mode)
+                stars=()
+                while IFS= read -r line; do
+                    # Extract just the star name from each line
+                    star_name=$(echo "$line" | awk '{print $1}' | sed 's/\x1B\[[0-9;]*[mK]//g')
+                    stars+=("$star_name")
+                done < <(find ${STAR_DIR} -type l -printf "%As %f\n" | sort -nr | cut -d" " -f2-)
+                
+                # Check if the index is valid
+                if [[ "${star_to_load}" -lt 1 || "${star_to_load}" -gt "${#stars[@]}" ]]; then
+                    echo -e "Invalid star index: \e[36m${star_to_load}\e[0m. Valid range is 1-${#stars[@]}."
+                    return
+                fi
+                
+                # Adjust for 0-based array indexing
+                star_index=$((star_to_load - 1))
+                # Use shell detection to handle both bash and zsh
+                if [[ -n "${ZSH_VERSION}" ]]; then
+                    star_to_load="${stars[$((star_index+1))]}"
+                else
+                    star_to_load="${stars[$star_index]}"
+                fi
+            fi
+
             if [[ ! -e ${STAR_DIR}/${star_to_load} ]]; then
                 echo -e "Star \e[36m${star_to_load}\e[0m does not exist."
             else
@@ -242,8 +268,13 @@ The following aliases are provided:
                 echo "No \".star\" directory (will be created when adding new starred directories)."
             else
                 # sort according to access time (last accessed is on top)
+                # Add index numbers to the output for easy reference
                 stars_list=$(find ${STAR_DIR} -type l -printf "%As \33[36m%f\33[0m -> \33[34m%l\33[0m\n" | column -t -s " " | sort -nr | cut -d" " -f3-)
-                echo "${stars_list//"${_STAR_DIR_SEPARATOR}"//}"
+                index=1
+                while IFS= read -r line; do
+                    echo -e "$index: $line"
+                    ((index++))
+                done <<< "${stars_list//"${_STAR_DIR_SEPARATOR}"//}"
             fi
             ;;
         RENAME)
