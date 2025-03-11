@@ -94,6 +94,12 @@ The following aliases are provided:
     force_reset=0
     mode=STORE
 
+    # If no arguments are provided, show help
+    if [[ $# -eq 0 ]]; then
+        echo "${star_help}"
+        return
+    fi
+
     while [[ $# -gt 0 ]]; do
         opt="$1"
         shift
