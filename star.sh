@@ -134,8 +134,8 @@ The following aliases are provided:
             "l"|"load" )
                 # load without arguments is equivalent to "star list"
                 if [[ $# -eq 0 ]]; then
-                    star list
-                    return
+                    mode=LIST
+                    break 2
                 fi
                 star_to_load="${1//\//"${_STAR_DIR_SEPARATOR}"}"
                 mode=LOAD
