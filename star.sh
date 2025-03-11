@@ -37,16 +37,19 @@ star()
     local star stars_list stars_path src_dir opt current_pwd user_input force_reset
     star_help="Usage: star [NAME|OPTION]
 
-Without OPTION:
+Without arguments:
+- Show this help message.
+
+With NAME:
 - Add the current directory to the list of starred directories.
-- The new star will be named after NAME if provided.
+- The new star will be named after NAME.
 - NAME must be unique (among all stars).
-- NAME can be anything that is not a reserved OPTION keywords (see below).
+- NAME can be anything that is not a reserved OPTION keyword (see below).
 - NAME can also contain slashes /.
 
 With OPTION:
 - Will execute the feature associated with this option.
-- OPTION can be one of list, load, remove, reset, help, or one of there shortnames (such as -h for help).
+- OPTION can be one of list, load, remove, reset, help, or one of their shortnames (such as -h for help).
 
 OPTION
     L|list
