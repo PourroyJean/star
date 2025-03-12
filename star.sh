@@ -193,7 +193,10 @@ star()
             # do not star this directory if it is already starred (even under another name)
             stars_path=( "$(find "$STAR_DIR" -printf "%l\n")" )
             if [[ "${stars_path[*]}" =~ (^|[[:space:]])${src_dir}($|[[:space:]]) ]]; then
-                echo "Directory is already starred."
+                # Find the star name for this directory
+                existing_star=$(find "$STAR_DIR" -type l -printf "%f %l\n" | grep " ${src_dir}$" | head -n1 | cut -d' ' -f1)
+                existing_star_display=${existing_star//"${_STAR_DIR_SEPARATOR}"//}
+                echo -e "Directory \e[34m${src_dir}\e[0m is already starred as \e[36m${existing_star_display}\e[0m."
                 return
             fi
 
