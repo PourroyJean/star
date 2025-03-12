@@ -418,6 +418,7 @@ alias sl="star l"       # star load
 alias sL="star L"       # star list
 alias srm="star rm"     # star remove
 alias unstar="star rm"  # star remove
+alias sa="star add"     # star add
 alias sah="star add"    # star add
 
 # activate completion for this program and the aliases
