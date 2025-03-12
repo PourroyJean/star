@@ -26,19 +26,23 @@ Also source the file in your `.bashrc` or `.zshrc`:
 ## Usage
 
 ```
-star [NAME|OPTION]
+star [OPTION [ARGUMENTS...]]
 ```
-Without `OPTION`:
-- Add the current directory to the list of starred directories.
-- The new star will be named after `NAME` if provided.
-- `NAME` must be unique (among all stars).
-- `NAME` can be anything that is not a reserved `OPTION` keywords (see below).
-- `NAME` can also contain slashes `/`.
+Without arguments:
+- Show this help message.
 
 With `OPTION`:
 - Will execute the feature associated with this option.
-- `OPTION` can be one of `list`, `load`, `remove`, `reset`, `help`, or one of there shortnames (such as `-h` for `help`). Use `star help` for more information on short parameters and aliases.
+- `OPTION` can be one of `add`, `list`, `load`, `rename`, `remove`, `reset`, `help`, or one of their shortnames (such as `-h` for `help`). Use `star help` for more information on short parameters and aliases.
 
+---
+```
+star add [NAME]
+```
+Add the current directory to the list of starred directories.
+The new star will be named after `NAME` if provided, otherwise it will use the basename of the current directory.
+`NAME` must be unique (among all stars).
+`NAME` can contain slashes `/`.
 
 ---
 ```
@@ -88,6 +92,7 @@ Get more information.
 > Use `star help` for all options and aliases.
 
 The following aliases are provided to make your life easier:
+- `sah` = star add
 - `sL` = star list
 - `sl` = star load (which is the same as "star list" when no argument is provided)
 - `unstar` = star remove
@@ -99,7 +104,7 @@ The following aliases are provided to make your life easier:
 fruchix@debian:~/Documents/star$ star list
 No ".star" directory (will be created when adding new starred directories).
 
-fruchix@debian:~/Documents/star$ star
+fruchix@debian:~/Documents/star$ star add
 Added new starred directory: star -> /home/fruchix/Documents/star
 
 fruchix@debian:~/Documents/star$ star list
@@ -107,7 +112,7 @@ star  ->  /home/fruchix/Documents/star
 
 fruchix@debian:~/Documents/star$ cd ..
 
-fruchix@debian:~/Documents$ star my/docs
+fruchix@debian:~/Documents$ star add my/docs
 Added new starred directory: my/docs -> /home/fruchix/Documents
 
 fruchix@debian:~/Documents$ sl
