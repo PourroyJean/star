@@ -290,7 +290,12 @@ star()
             else
                 # sort according to access time (last accessed is on top)
                 # Add index numbers to the output for easy reference
-                stars_list=$(find ${STAR_DIR} -type l -printf "%As \33[36m%f\33[0m -> \33[34m%l\33[0m\n" | sort -nr | cut -d" " -f2- | column -t -s " ")
+                # Use printf to generate the formatted output with colors
+                stars_list=$(find ${STAR_DIR} -type l -printf "%As %f %l\n" | sort -nr | 
+                            awk -v star="${COLOR_STAR}" -v path="${COLOR_PATH}" -v reset="${COLOR_RESET}" \
+                            '{printf "%s%s%s -> %s%s%s\n", star, $2, reset, path, $3, reset}' | 
+                            column -t)
+                
                 index=1
                 while IFS= read -r line; do
                     printf "%-3s  %s\n" "${index}." "$line"
