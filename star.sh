@@ -101,12 +101,6 @@ star()
     force_reset=0
     mode=HELP
 
-    # If no arguments are provided, show help
-    if [[ $# -eq 0 ]]; then
-        _star_usage
-        return
-    fi
-
     while [[ $# -gt 0 ]]; do
         opt="$1"
         shift
@@ -170,8 +164,8 @@ star()
                 break
                 ;;
             "h"|"help"|"-h"|"--help" )
-                _star_usage
-                return
+                mode=HELP
+                break 2
                 ;;
             *)
                 echo >&2 "Invalid mode: $opt"
@@ -349,6 +343,10 @@ star()
                         echo "Not a valid answer.";;
                 esac
             done
+            ;;
+        HELP)
+            _star_usage
+            return
             ;;
         *)
             ;;
