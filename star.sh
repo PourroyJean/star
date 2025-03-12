@@ -37,18 +37,21 @@ star()
     local star stars_list stars_path src_dir opt current_pwd user_input force_reset
     star_help="Usage: star [NAME|OPTION]
 
-Without OPTION:
-- Add the current directory to the list of starred directories.
-- The new star will be named after NAME if provided.
-- NAME must be unique (among all stars).
-- NAME can be anything that is not a reserved OPTION keywords (see below).
-- NAME can also contain slashes /.
+Without arguments:
+- Show this help message.
 
 With OPTION:
 - Will execute the feature associated with this option.
-- OPTION can be one of list, load, remove, reset, help, or one of there shortnames (such as -h for help).
+- OPTION can be one of add, list, load, remove, reset, help, or one of their shortnames (such as -h for help).
 
 OPTION
+    add [NAME]
+        Add the current directory to the list of starred directories.
+        The new star will be named after NAME if provided, otherwise it will
+        use the basename of the current directory.
+        NAME must be unique (among all stars).
+        NAME can contain slashes /.
+
     L|list
         List all starred directories, sorted according to last load (top ones are the last loaded stars).
 
@@ -89,10 +92,16 @@ The following aliases are provided:
     # Parse the arguments
 
     positional_args=()
-    star_to_store="${1-}"   # default value is an empty string if $1 is unset
+    star_to_store=""
     stars_to_remove=()
     force_reset=0
-    mode=STORE
+    mode=HELP
+
+    # If no arguments are provided, show help
+    if [[ $# -eq 0 ]]; then
+        echo "${star_help}"
+        return
+    fi
 
     while [[ $# -gt 0 ]]; do
         opt="$1"
@@ -106,6 +115,15 @@ The following aliases are provided:
         case "$opt" in
             "--" ) break 2;;
             "-" ) break 2;;
+            "add" )
+                mode=STORE
+                # If there's an argument after "add", use it as star name
+                if [[ $# -gt 0 && ! "$1" =~ ^- ]]; then
+                    star_to_store="$1"
+                    shift
+                fi
+                break
+                ;;
             "reset" )
                 mode=RESET
                 if [[ "$1" == "-f" || "$1" == "--force" ]]; then
@@ -354,7 +372,7 @@ _star_completion()
     COMPREPLY=()
     cur="${COMP_WORDS[COMP_CWORD]}"
     prev="${COMP_WORDS[COMP_CWORD-1]}"
-    opts="load rename remove list reset help"
+    opts="add load rename remove list reset help"
 
     # first and second comp words
     first_cw="${COMP_WORDS[COMP_CWORD-COMP_CWORD]}"
@@ -400,12 +418,14 @@ alias sl="star l"       # star load
 alias sL="star L"       # star list
 alias srm="star rm"     # star remove
 alias unstar="star rm"  # star remove
+alias sah="star add"    # star add
 
 # activate completion for this program and the aliases
 complete -F _star_completion star
 complete -F _star_completion sl
 complete -F _star_completion srm
 complete -F _star_completion unstar
+complete -F _star_completion sah
 
 # remove broken symlinks directly when sourcing this file
 _star_prune
