@@ -54,7 +54,7 @@ MODE
         Navigate (cd) into the starred directory.
         Equivalent to \"star list\" when no starred directory is given.
 
-        STAR should be the name of a starred directory.
+        STAR should be the name or index of a starred directory.
         (one that is listed using \"star list\").
 
     rename <EXISTING_STAR> <NEW_STAR_NAME>
@@ -142,7 +142,7 @@ star()
             "rename" )
                 mode=RENAME
                 if [[ $# -lt 2 ]]; then
-                    echo "Missing argument. Usage: star rename <existing star> <new star name>"
+                    echo "Missing argument. Usage: star rename <EXISTING_STAR> <NEW_STAR_NAME>"
                     return
                 fi
                 rename_src="${1//\//"${_STAR_DIR_SEPARATOR}"}"
@@ -151,7 +151,7 @@ star()
                 ;;
             "rm"|"remove" )
                 if [[ $# -eq 0 ]]; then
-                    echo "Missing argument. Usage: star remove <star> [star] [star] ..."
+                    echo "Missing argument. Usage: star remove <STAR> [STAR]..."
                     return
                 fi
                 stars_to_remove+=("${1//\//"${_STAR_DIR_SEPARATOR}"}")

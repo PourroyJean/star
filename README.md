@@ -65,7 +65,7 @@ sl
 Navigate (cd) into the specified STAR directory.
 If no argument is provided, it displays the list of starred directories (same behavior as star list).
 
-`STAR` should be the name of a starred directory (one that is listed using "star list").
+`STAR` should be the name or index of a starred directory (one that is listed using "star list").
 
 > Also updates the last accessed time (used to sort stars when listing them).
 ---
@@ -118,7 +118,7 @@ fruchix@debian:~/Documents/star$ star add
 Added new starred directory: star -> /home/fruchix/Documents/star
 
 fruchix@debian:~/Documents/star$ star list
-star  ->  /home/fruchix/Documents/star
+1:  star  ->  /home/fruchix/Documents/star
 
 fruchix@debian:~/Documents/star$ cd ..
 
@@ -129,8 +129,8 @@ Added new starred directory: my/docs -> /home/fruchix/Documents
 # but is a star name containing a slash
 
 fruchix@debian:~/Documents$ sl
-my/docs  ->  /home/fruchix/Documents
-star     ->  /home/fruchix/Documents/star
+1:  my/docs  ->  /home/fruchix/Documents
+2:  star     ->  /home/fruchix/Documents/star
 
 fruchix@debian:~/Documents$ cd
 
