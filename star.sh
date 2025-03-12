@@ -92,10 +92,10 @@ The following aliases are provided:
     # Parse the arguments
 
     positional_args=()
-    star_to_store=""  # No longer setting $1 as the default star name
+    star_to_store=""
     stars_to_remove=()
     force_reset=0
-    mode=HELP  # Default mode changed to HELP instead of STORE
+    mode=HELP
 
     # If no arguments are provided, show help
     if [[ $# -eq 0 ]]; then
@@ -418,12 +418,14 @@ alias sl="star l"       # star load
 alias sL="star L"       # star list
 alias srm="star rm"     # star remove
 alias unstar="star rm"  # star remove
+alias sah="star add"    # star add
 
 # activate completion for this program and the aliases
 complete -F _star_completion star
 complete -F _star_completion sl
 complete -F _star_completion srm
 complete -F _star_completion unstar
+complete -F _star_completion sah
 
 # remove broken symlinks directly when sourcing this file
 _star_prune
