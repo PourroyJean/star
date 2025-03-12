@@ -243,7 +243,7 @@ The following aliases are provided:
             ;;
         LOAD)
             if [[ ! -d "${STAR_DIR}" ]];then
-                echo "No star can be loaded, as there is not any starred directory."
+                echo "No star can be loaded because there is no starred directory."
                 return
             fi
 
