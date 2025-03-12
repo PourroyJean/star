@@ -152,4 +152,4 @@ Contributions are welcome! Please submit issues or pull requests to improve star
 
 ## Contributors
 
-Special thanks to @PourroyJean for contributing to this project.
+Special thanks to [@PourroyJean](https://www.github.com/PourroyJean) for contributing to this project.
