@@ -27,15 +27,10 @@ _star_prune()
     done
 }
 
-star()
+_star_usage()
 {
-    _star_prune
-
-    # all variables are local except STAR_DIR and _STAR_DIR_SEPARATOR
-    local positional_args star_to_store stars_to_remove star_to_load star_help mode rename_src rename_dst
-    local dst_name dst_name_slash dst_basename
-    local star stars_list stars_path src_dir opt current_pwd user_input force_reset
-    star_help="Usage: star [MODE [ARGUMENTS]...]
+    cat << EOF
+Usage: star [MODE [ARGUMENTS]...]
 
 Without MODE:
 - Show this help message.
@@ -87,7 +82,18 @@ The following aliases are provided:
         both corresponds to \"star remove\"
     sa, sah
         both corresponds to \"star add\"
-"
+
+EOF
+}
+
+star()
+{
+    _star_prune
+
+    # all variables are local except STAR_DIR and _STAR_DIR_SEPARATOR
+    local positional_args star_to_store stars_to_remove star_to_load mode rename_src rename_dst
+    local dst_name dst_name_slash dst_basename
+    local star stars_list stars_path src_dir opt current_pwd user_input force_reset
 
     # Parse the arguments
 
@@ -99,7 +105,7 @@ The following aliases are provided:
 
     # If no arguments are provided, show help
     if [[ $# -eq 0 ]]; then
-        echo "${star_help}"
+        _star_usage
         return
     fi
 
@@ -166,7 +172,7 @@ The following aliases are provided:
                 break
                 ;;
             "h"|"help"|"-h"|"--help" )
-                echo "${star_help}"
+                _star_usage
                 return
                 ;;
             -*)
