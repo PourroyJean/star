@@ -91,13 +91,11 @@ star()
     _star_prune
 
     # all variables are local except STAR_DIR and _STAR_DIR_SEPARATOR
-    local positional_args star_to_store stars_to_remove star_to_load mode rename_src rename_dst
+    local star_to_store stars_to_remove star_to_load mode rename_src rename_dst
     local dst_name dst_name_slash dst_basename
     local star stars_list stars_path src_dir opt current_pwd user_input force_reset
 
     # Parse the arguments
-
-    positional_args=()
     star_to_store=""
     stars_to_remove=()
     force_reset=0
@@ -175,12 +173,9 @@ star()
                 _star_usage
                 return
                 ;;
-            -*)
-                echo >&2 "Invalid option: $opt"
-                return
-                ;;
             *)
-                positional_args+=("$opt")
+                echo >&2 "Invalid mode: $opt"
+                return
                 ;;
        esac
     done
