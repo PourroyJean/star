@@ -31,18 +31,19 @@ echo "source $(pwd)/star.sh" >> ~/.zshrc
 ## Usage
 
 ```
-star [OPTION [ARGUMENTS...]]
+star [MODE [ARGUMENTS...]]
 ```
-Without arguments:
+Without MODE:
 - Show this help message.
 
-With `OPTION`:
+With `MODE`:
 - Will execute the feature associated with this option.
-- `OPTION` can be one of `add`, `list`, `load`, `rename`, `remove`, `reset`, `help`, or one of their shortnames (such as `-h` for `help`). Use `star help` for more information on short parameters and aliases.
+- `MODE` can be one of `add`, `list`, `load`, `rename`, `remove`, `reset`, `help`, or one of their shortnames (such as `-h` for `help`). Use `star help` for more information on short parameters and aliases.
 
 ---
 ```
 star add [NAME]
+sa [NAME]
 ```
 Add the current directory to the list of starred directories.
 The new star will be named after `NAME` if provided, otherwise it will use the basename of the current directory.
@@ -58,28 +59,29 @@ List all starred directories, sorted according to last load (top ones are the la
 
 ---
 ```
-star load [star]
+star load [STAR]
 sl
 ```
-Navigate (cd) into the specified [star] directory.
+Navigate (cd) into the specified STAR directory.
 If no argument is provided, it displays the list of starred directories (same behavior as star list).
 
-`[star]` should be the name of a starred directory (one that is listed using "star list").
+`STAR` should be the name of a starred directory (one that is listed using "star list").
 
 > Also updates the last accessed time (used to sort stars when listing them).
 ---
 ```
-star rename <existing star> <new star name>
+star rename <EXISTING_STAR> <NEW_STAR_NAME>
 ```
 Rename an existing star.
 
 ---
 ```
-star remove <star> [star] [star] [...]
+star remove <STAR> [STAR]...
+srm <STAR> [STAR]...
 ```
 Remove one or more starred directories.
 
-`<star>` should be the name of a starred directory.
+`STAR` should be the name of a starred directory.
 
 ---
 ```
@@ -99,6 +101,7 @@ Get more information.
 > Use `star help` for all options and aliases.
 
 The following aliases are provided to make your life easier:
+- `sa` = star add
 - `sah` = star add
 - `sL` = star list
 - `sl` = star load (which is the same as "star list" when no argument is provided)
@@ -122,6 +125,9 @@ fruchix@debian:~/Documents/star$ cd ..
 fruchix@debian:~/Documents$ star add my/docs
 Added new starred directory: my/docs -> /home/fruchix/Documents
 
+# my/doc is not composed of two directories "my" and "docs", 
+# but is a star name containing a slash
+
 fruchix@debian:~/Documents$ sl
 my/docs  ->  /home/fruchix/Documents
 star     ->  /home/fruchix/Documents/star
@@ -139,4 +145,11 @@ Removed starred directory: my/docs
 ## License
 
 [Apache](./LICENSE)  
-> Copyright 2024 Fruchix
+> Copyright 2025 Fruchix
+
+## Contributing
+Contributions are welcome! Please submit issues or pull requests to improve star.
+
+## Contributors
+
+Special thanks to @PourroyJean for contributing to this project.

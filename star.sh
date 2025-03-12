@@ -35,16 +35,16 @@ star()
     local positional_args star_to_store stars_to_remove star_to_load star_help mode rename_src rename_dst
     local dst_name dst_name_slash dst_basename
     local star stars_list stars_path src_dir opt current_pwd user_input force_reset
-    star_help="Usage: star [NAME|OPTION]
+    star_help="Usage: star [MODE [ARGUMENTS]...]
 
-Without arguments:
+Without MODE:
 - Show this help message.
 
-With OPTION:
-- Will execute the feature associated with this option.
-- OPTION can be one of add, list, load, remove, reset, help, or one of their shortnames (such as -h for help).
+With MODE:
+- Will execute the feature associated with this mode.
+- MODE can be one of add, list, load, remove, reset, help, or one of their shortnames (such as -h for help).
 
-OPTION
+MODE
     add [NAME]
         Add the current directory to the list of starred directories.
         The new star will be named after NAME if provided, otherwise it will
@@ -52,29 +52,29 @@ OPTION
         NAME must be unique (among all stars).
         NAME can contain slashes /.
 
-    L|list
+    list, L
         List all starred directories, sorted according to last load (top ones are the last loaded stars).
 
-    l|load [star]
-        Navigate into the starred directory.
+    load, l [STAR]
+        Navigate (cd) into the starred directory.
         Equivalent to \"star list\" when no starred directory is given.
 
-        <star> should be the name of a starred directory 
+        STAR should be the name of a starred directory.
         (one that is listed using \"star list\").
 
-    rename <existing star> <new star name>
+    rename <EXISTING_STAR> <NEW_STAR_NAME>
         Rename an existing star.
 
-    rm|remove <star> [star] [star] [...]
+    remove, rm <STAR> [STAR]...
         Remove one or more starred directories.
 
-        <star> should be the name of a starred directory.
+        STAR should be the name of a starred directory.
 
     reset [-f|--force]
         Remove the \".star\" directory (hence remove the starred directories).
         The argument -f or --force will force the reset without prompting the user.
 
-    h|help|-h|--help
+    help, h, --help, -h
         displays this message
 
 ALIASES
@@ -83,10 +83,10 @@ The following aliases are provided:
         corresponds to \"star list\"
     sl
         corresponds to \"star load\"
-    srm
-        corresponds to \"star remove\"
-    unstar
-        corresponds to \"star remove\"
+    srm, unstar
+        both corresponds to \"star remove\"
+    sa, sah
+        both corresponds to \"star add\"
 "
 
     # Parse the arguments
