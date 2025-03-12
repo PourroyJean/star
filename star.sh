@@ -286,7 +286,7 @@ star()
                 stars_list=$(find ${STAR_DIR} -type l -printf "%As \33[36m%f\33[0m -> \33[34m%l\33[0m\n" | sort -nr | cut -d" " -f2- | column -t -s " ")
                 index=1
                 while IFS= read -r line; do
-                    echo -e "$index:  $line"
+                    printf "%-3s  %s\n" "${index}." "$line"
                     ((index++))
                 done <<< "${stars_list//"${_STAR_DIR_SEPARATOR}"//}"
             fi
