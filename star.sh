@@ -263,13 +263,11 @@ The following aliases are provided:
                     return
                 fi
                 
-                # Adjust for 0-based array indexing
-                star_index=$((star_to_load - 1))
                 # Use shell detection to handle both bash and zsh
                 if [[ -n "${ZSH_VERSION}" ]]; then
-                    star_to_load="${stars[$((star_index+1))]}"
+                    star_to_load="${stars[$star_to_load]}"
                 else
-                    star_to_load="${stars[$star_index]}"
+                    star_to_load="${stars[$((star_to_load-1))]}"
                 fi
             fi
 
