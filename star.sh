@@ -287,10 +287,10 @@ The following aliases are provided:
             else
                 # sort according to access time (last accessed is on top)
                 # Add index numbers to the output for easy reference
-                stars_list=$(find ${STAR_DIR} -type l -printf "%As \33[36m%f\33[0m -> \33[34m%l\33[0m\n" | column -t -s " " | sort -nr | cut -d" " -f3-)
+                stars_list=$(find ${STAR_DIR} -type l -printf "%As \33[36m%f\33[0m -> \33[34m%l\33[0m\n" | sort -nr | cut -d" " -f2- | column -t -s " ")
                 index=1
                 while IFS= read -r line; do
-                    echo -e "$index: $line"
+                    echo -e "$index:  $line"
                     ((index++))
                 done <<< "${stars_list//"${_STAR_DIR_SEPARATOR}"//}"
             fi

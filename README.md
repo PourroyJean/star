@@ -15,7 +15,7 @@ Clone the repo and source the file [`star.sh`](./star.sh):
 ```bash
 git clone https://github.com/Fruchix/star.git
 cd star
-source star.sh           # equivalent of ". star.sh"s
+source star.sh
 ```
 
 Also source the file in your `.bashrc`:
